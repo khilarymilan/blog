@@ -81,9 +81,9 @@ class DATABASE_CONFIG {
 		'datasource' => 'Database/Mysql',
 		'persistent' => false,
 		'host' => $url['host'],
-            'login' => $url['user'],
-            'password' => $url['pass'],
-            'database' => substr($url['path'],1),
+        'login' => $url['user'],
+        'password' => $url['pass'],
+        'database' => substr($url['path'],1),
 		'prefix' => '',
 		//'encoding' => 'utf8',
 	);
