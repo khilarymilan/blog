@@ -76,6 +76,7 @@ class DATABASE_CONFIG {
 	// 	'prefix' => '',
 	// 	//'encoding' => 'utf8',
 	// );
+	
 	public $url = parse_url(getenv('CLEARDB_DATABASE_URL'));
 	public $default = array(
 		'datasource' => 'Database/Mysql',
