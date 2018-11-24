@@ -77,14 +77,13 @@ class DATABASE_CONFIG {
 	// 	//'encoding' => 'utf8',
 	// );
 	
-	public $url = parse_url(getenv('CLEARDB_DATABASE_URL'));
 	public $default = array(
 		'datasource' => 'Database/Mysql',
 		'persistent' => false,
-		'host' => $this->url['host'],
-        'login' => $this->url['user'],
-        'password' => $this->url['pass'],
-        'database' => substr($this->url['path'],1),
+		'host' => 'us-cdbr-iron-east-01.cleardb.net',
+        'login' => 'bb6a04124e859f',
+        'password' => 'da7d71b6',
+        'database' => 'heroku_b830d156f0687e9',
 		'prefix' => '',
 		//'encoding' => 'utf8',
 	);
