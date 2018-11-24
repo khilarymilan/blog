@@ -76,14 +76,14 @@ class DATABASE_CONFIG {
 	// 	'prefix' => '',
 	// 	//'encoding' => 'utf8',
 	// );
-	$url = parse_url(getenv('CLEARDB_DATABASE_URL'));
+	public $url = parse_url(getenv('CLEARDB_DATABASE_URL'));
 	public $default = array(
 		'datasource' => 'Database/Mysql',
 		'persistent' => false,
-		'host' => $url['host'],
-        'login' => $url['user'],
-        'password' => $url['pass'],
-        'database' => substr($url['path'],1),
+		'host' => $this->url['host'],
+        'login' => $this->url['user'],
+        'password' => $this->url['pass'],
+        'database' => substr($this->url['path'],1),
 		'prefix' => '',
 		//'encoding' => 'utf8',
 	);
