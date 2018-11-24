@@ -78,7 +78,7 @@ class DATABASE_CONFIG {
 	// );
 	$url = parse_url(getenv('CLEARDB_DATABASE_URL'));
 	public $default = array(
-		'datasource' => 'Database/Postgres',
+		'datasource' => 'Database/Mysql',
 		'persistent' => false,
 		'host' => $url['host'],
             'login' => $url['user'],
