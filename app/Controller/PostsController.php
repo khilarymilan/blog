@@ -106,9 +106,8 @@ class PostsController extends AppController {
             $this->Paginator->settings = $this->paginate;
             return $this->Paginator->paginate('Post');
         } catch (NotFoundException $e) {
-            $this->redirect(['action' => $redirect_page]);
+            return $this->redirect(['action' => $redirect_page]);
         }
-
     }
 
     /**

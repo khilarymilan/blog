@@ -47,9 +47,13 @@ class AppController extends Controller {
     ];
 
     public function beforeFilter() {
+        $admin_pages = ['list', 'add', 'edit'];
         $guest_pages = ['index', 'archive', 'view'];
         $this->Auth->allow($guest_pages);
+
+        $this->set(compact('admin_pages'));
         $this->set(compact('guest_pages'));
+        $this->set('auth_user', $this->Auth->user());
     }
 
     public function setFlashMessage($type, $message) {

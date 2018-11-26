@@ -56,7 +56,7 @@
         <div class="l-wrap js-wrap">
             <!--start header-->
             <?php 
-                $user = in_array($this->params['action'], $guest_pages) ? 'guest' : 'admin';
+                $user = (in_array($this->params['action'], $admin_pages)) ? 'admin' : 'guest';
                 echo $this->element('/headers/' . $user . '_header');
             ?>
             <!--end header-->
