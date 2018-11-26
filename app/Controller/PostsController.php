@@ -2,8 +2,8 @@
 
 class PostsController extends AppController {
     public $helpers = ['Html', 'Form'];
-    public $components = ['Paginator'];
-
+    public $components = ['Paginator', 'Session'];
+    public $allowedActions = ['view'];
     public $paginate = [
         'limit' => 5,
         'order' => [
@@ -20,7 +20,12 @@ class PostsController extends AppController {
      * View individual article
      * @return array of posts
      */
-    public function view($id = '') {
+    public function view($id = null) {
+        if (!$id) {
+            $this->setFlashMessage('error', 'Sorry, the page you are trying to access does not exist.');
+            return $this->redirect(['action' => 'index']);
+        }
+
         $post = $this->Post->findById($id);
         if (!$post) {
             $this->setFlashMessage('error', 'Sorry, the page you are trying to access does not exist.');
