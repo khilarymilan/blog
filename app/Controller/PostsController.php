@@ -12,9 +12,14 @@ class PostsController extends AppController {
     ];
 
     public function index() {
-        $this->_paginatePosts();
+        $posts = $this->_paginatePosts();
+        $this->set(compact('posts'));
     }
 
+    /**
+     * View individual article
+     * @return array of posts
+     */
     public function view($id = null) {
         if (!$id) {
             $this->setFlashMessage('error', 'Sorry, the page you are trying to access does not exist.');
@@ -30,7 +35,8 @@ class PostsController extends AppController {
     }
 
     public function archive() {
-        $this->_paginatePosts();
+        $posts = $this->_paginatePosts();
+        $this->set(compact('posts'));
     }
 
     public function add() {
@@ -38,10 +44,12 @@ class PostsController extends AppController {
             $this->Post->set($this->request->data);
             if ($this->Post->validates()) {
                 $image_data = $this->request->data['Post']['image'];
+                $image_data['name'] = $this->_setImageName($image_data['name']);
                 $this->request->data['Post']['image'] = $image_data['name'];
+
                 if ($this->Post->save($this->request->data)) {
                     $this->_saveImage([
-                        'tmp_name' => $image_data['tmp_name'], 
+                        'tmp_name' => $image_data['tmp_name'],
                         'filename' => $image_data['name']
                     ]);
                     $this->setFlashMessage('success', 'Article has been added');
@@ -63,6 +71,7 @@ class PostsController extends AppController {
         if ($this->request->is('post') || $this->request->is('put')) {
             $image_data = $this->request->data['Post']['image_new'];
             if (!empty($image_data['name'])) {
+                $image_data['name'] = $this->_setImageName($image_data['name']);
                 $this->request->data['Post']['image'] = $image_data['name'];
             }
 
@@ -70,10 +79,10 @@ class PostsController extends AppController {
             $this->Post->set($this->request->data);
             if ($this->Post->validates()) {
                 if ($this->Post->save($this->request->data)) {
-                    if (!empty($this->request->data['Post']['image_new']['name'])) {
+                    if (!empty($image_data['name'])) {
                         $this->_saveImage([
-                            'tmp_name' => $this->request->data['Post']['image_new']['tmp_name'], 
-                            'filename' => $this->request->data['Post']['image_new']['name']
+                            'tmp_name' => $image_data['tmp_name'],
+                            'filename' => $image_data['name']
                         ]);
                     }
                     $this->setFlashMessage('success', 'Article has been edited');
@@ -84,15 +93,40 @@ class PostsController extends AppController {
         $this->request->data = $post;
     }
 
+    /**
+     * Admin List Page
+     * @return array of posts
+     */
     public function list() {
-        $this->_paginatePosts();
+        $posts = $this->_paginatePosts();
+        $this->set(compact('posts'));
     }
 
     private function _paginatePosts() {
         $this->Paginator->settings = $this->paginate;
 
-        $posts = $this->Paginator->paginate('Post');
-        $this->set(compact('posts'));
+        return $this->Paginator->paginate('Post');
+    }
+
+    /**
+     * Change filename if filename already exists for image
+     * @param  string $image_name image_name filename of image
+     * @return string new image filename
+     */
+    private function _setImageName($image_name) {
+        $filename = pathinfo($image_name,PATHINFO_FILENAME);
+        $extension = pathinfo($image_name, PATHINFO_EXTENSION);
+        $original_filename = $filename;
+
+        $i = 1;
+        while(file_exists(WWW_ROOT . 'img' . DS . $filename . "." . $extension))
+        {
+            $filename = (string)$original_filename . '-' . $i;
+            $image_name = $filename . "." . $extension;
+            $i++;
+        }
+
+        return $image_name;
     }
 
     private function _saveImage($data = []) {

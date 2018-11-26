@@ -14,7 +14,7 @@
             <?php foreach ($posts as $post) : ?>
                 <li class="archive-item">
                     <?php echo '<a href="/posts/edit/' . $post['Post']['id'] . '" class="post-article">'; ?>
-                        <time class="post-article-date" datetime="2016-9-16"><?php echo $post['Post']['created']; ?></time>
+                        <time class="post-article-date" datetime="2016-9-16"><?php echo date('d M, Y', strtotime($post['Post']['created'])); ?></time>
                         <h1 class="post-article-title"><?php echo $post['Post']['title']; ?></h1>
                     </a>
                 </li>

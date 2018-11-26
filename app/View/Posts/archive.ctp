@@ -18,7 +18,7 @@
                                 <div class="card-bottom">
                                     <h1 class="card-title"><?php echo $post['Post']['title']; ?></h1>
                                     <time class="card-date" datetime="2016-9-16">
-                                        <?php echo $post['Post']['created']; ?>
+                                        <?php echo date('d M, Y', strtotime($post['Post']['created'])); ?>
                                     </time>
                                 </div>
                             </a>

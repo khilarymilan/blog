@@ -19,6 +19,6 @@
 <div class="l-container u-clear">
     <main class="l-main js-main">
         <div class="l-main-block"></div>
-		<div class="alert alert-danger" role="alert">Sorry, this page does not exist</div>
-	</main>
+        <div class="alert alert-danger" role="alert">Sorry, this page does not exist</div>
+    </main>
 </div>

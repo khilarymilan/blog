@@ -40,7 +40,7 @@
         <link rel="shortcut icon" href="assets/images/common/favicon.ico">
         <link rel="apple-touch-icon-precomposed" href="images/common/apple-touch-icon-precomposed.png">
         <?php echo $this->Html->css(['bootstrap.min.css', 'style',]); ?>
-        <?php echo $this->Html->script(['app', 'jquery-3.1.1.min', 'blog']); ?>
+        <?php echo $this->Html->script(['app', 'jquery-3.1.1.min', 'blog', 'modernizr.js']); ?>
         <style>
             .error-message {
                 color: red;
@@ -64,7 +64,11 @@
             <?php echo $this->fetch('content'); ?>
 
             <!--footer ここから-->
-            <?php echo $this->element('/footers/footer'); ?>
+            <?php
+                if ($this->params['action'] != 'login') {
+                    echo $this->element('/footers/footer');
+                }
+            ?>
             <!--footer ここまで-->
         </div>
     </body>
