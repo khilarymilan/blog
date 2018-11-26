@@ -34,7 +34,7 @@ class PostsController extends AppController {
     }
 
     public function archive() {
-        $posts = $this->_paginatePosts();
+        $posts = $this->_paginatePosts('archive');
         $this->set(compact('posts'));
     }
 
@@ -97,16 +97,16 @@ class PostsController extends AppController {
      * @return array of posts
      */
     public function list() {
-        $posts = $this->_paginatePosts();
+        $posts = $this->_paginatePosts('list');
         $this->set(compact('posts'));
     }
 
-    private function _paginatePosts() {
+    private function _paginatePosts($redirect_page = 'index') {
         try {
             $this->Paginator->settings = $this->paginate;
             return $this->Paginator->paginate('Post');
         } catch (NotFoundException $e) {
-            return $this->redirect(['action' => 'index']);
+            $this->redirect(['action' => $redirect_page]);
         }
 
     }
