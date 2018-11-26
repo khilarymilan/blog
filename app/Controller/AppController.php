@@ -51,8 +51,7 @@ class AppController extends Controller {
         $guest_pages = ['index', 'archive', 'view'];
         $this->Auth->allow($guest_pages);
 
-        $this->set(compact('admin_pages'));
-        $this->set(compact('guest_pages'));
+        $this->set(compact('admin_pages', 'guest_pages'));
         $this->set('auth_user', $this->Auth->user());
     }
 
