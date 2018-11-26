@@ -55,7 +55,7 @@ class AppController extends Controller {
     public function setFlashMessage($type, $message) {
         if ($type == 'success') {
             $this->Flash->success($message, ['key' => 'success']);
-        } else {
+        } elseif ($type == 'error') {
             $this->Flash->error($message, ['key' => 'error']);
         }
     }

@@ -26,7 +26,7 @@ class PostsController extends AppController {
             $this->setFlashMessage('error', 'Sorry, the page you are trying to access does not exist.');
             return $this->redirect(['action' => 'index']);
         }
-        $this->set('post', $post);
+        $this->set(compact('post'));
     }
 
     public function archive() {
