@@ -47,7 +47,7 @@ class AppController extends Controller {
     ];
 
     public function beforeFilter() {
-        $admin_pages = ['list', 'add', 'edit'];
+        $admin_pages = ['list', 'add', 'edit', 'login'];
         $guest_pages = ['index', 'archive', 'view'];
         $this->Auth->allow($guest_pages);
 
