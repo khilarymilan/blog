@@ -20,17 +20,13 @@ class PostsController extends AppController {
      * View individual article
      * @return array of posts
      */
-    public function view($id = null) {
-        if (!$id) {
-            $this->setFlashMessage('error', 'Sorry, the page you are trying to access does not exist.');
-            return $this->redirect(['action' => 'index']);
-        }
-
+    public function view($id = '') {
         $post = $this->Post->findById($id);
         if (!$post) {
             $this->setFlashMessage('error', 'Sorry, the page you are trying to access does not exist.');
             return $this->redirect(['action' => 'index']);
         }
+
         $this->set(compact('post'));
     }
 
