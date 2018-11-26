@@ -14,28 +14,11 @@
  * @license       https://opensource.org/licenses/mit-license.php MIT License
  */
 
-$pluginDot = empty($plugin) ? null : $plugin . '.';
 ?>
-<h2><?php echo __d('cake_dev', 'Missing Controller'); ?></h2>
-<p class="error">
-	<strong><?php echo __d('cake_dev', 'Error'); ?>: </strong>
-	<?php echo __d('cake_dev', '%s could not be found.', '<em>' . h($pluginDot . $class) . '</em>'); ?>
-</p>
-<p class="error">
-	<strong><?php echo __d('cake_dev', 'Error'); ?>: </strong>
-	<?php echo __d('cake_dev', 'Create the class %s below in file: %s', '<em>' . h($class) . '</em>', (empty($plugin) ? APP_DIR . DS : CakePlugin::path($plugin)) . 'Controller' . DS . h($class) . '.php'); ?>
-</p>
-<pre>
-&lt;?php
-class <?php echo h($class . ' extends ' . (empty($plugin) ? '' : $plugin)); ?>AppController {
 
-}
-</pre>
-<p class="notice">
-	<strong><?php echo __d('cake_dev', 'Notice'); ?>: </strong>
-	<?php echo __d('cake_dev', 'If you want to customize this error message, create %s', APP_DIR . DS . 'View' . DS . 'Errors' . DS . 'missing_controller.ctp'); ?>
-</p>
-
-<?php
-echo $this->element('exception_stack_trace');
-?>
+<div class="l-container u-clear">
+    <main class="l-main js-main">
+        <div class="l-main-block"></div>
+		<div class="alert alert-danger" role="alert">Sorry, this page does not exist</div>
+	</main>
+</div>

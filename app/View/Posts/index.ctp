@@ -3,11 +3,7 @@
     <!--start l-main-->
     <main class="l-main js-main">
         <div class="l-main-block"></div>
-        <?php 
-            if($this->Flash->render('error')){
-                echo $this->Flash->render('error');
-            }
-        ?>
+        <?php echo $this->Flash->render('error'); ?>
         <div class="archive">
             <ul class="archive-list">
                 <?php foreach($posts as $post) : ?>
