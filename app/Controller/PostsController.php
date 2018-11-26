@@ -3,7 +3,6 @@
 class PostsController extends AppController {
     public $helpers = ['Html', 'Form'];
     public $components = ['Paginator', 'Session'];
-
     public $paginate = [
         'limit' => 5,
         'order' => [
@@ -28,7 +27,6 @@ class PostsController extends AppController {
 
         $post = $this->Post->findById($id);
         if (!$post) {
-            $this->setFlashMessage('error', 'Sorry, the page you are trying to access does not exist.');
             return $this->redirect(['action' => 'index']);
         }
 
@@ -104,9 +102,13 @@ class PostsController extends AppController {
     }
 
     private function _paginatePosts() {
-        $this->Paginator->settings = $this->paginate;
+        try {
+            $this->Paginator->settings = $this->paginate;
+            return $this->Paginator->paginate('Post');
+        } catch (NotFoundException $e) {
+            return $this->redirect(['action' => 'index']);
+        }
 
-        return $this->Paginator->paginate('Post');
     }
 
     /**
