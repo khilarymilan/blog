@@ -7,7 +7,7 @@
                     'alt' => 'BLOG', 
                     'width' => '138', 
                     'height' => '28',
-                    'url' => ['controller' => 'posts', 'action' => 'list']
+                    'url' => ['controller' => 'posts', 'action' => 'list'],
                 ]); 
             ?>
         </div>

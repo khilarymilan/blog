@@ -27,28 +27,36 @@ App::uses('Controller', 'Controller');
  * Add your application-wide methods in the class below, your controllers
  * will inherit them.
  *
- * @package		app.Controller
- * @link		https://book.cakephp.org/2.0/en/controllers.html#the-app-controller
+ * @package     app.Controller
+ * @link        https://book.cakephp.org/2.0/en/controllers.html#the-app-controller
  */
 class AppController extends Controller {
 
-	public $components = array(
+    public $components = [
         'Flash',
-        'Auth' => array(
-            'loginRedirect' => array(
+        'Auth' => [
+            'loginRedirect' => [
                 'controller' => 'posts',
                 'action' => 'list'
-            ),
-            'logoutRedirect' => array(
+            ],
+            'logoutRedirect' => [
                 'controller' => 'users',
                 'action' => 'login',
-            ),
-        )
-    );
+            ],
+        ],
+    ];
 
     public function beforeFilter() {
         $guest_pages = ['index', 'archive', 'view'];
         $this->Auth->allow($guest_pages);
         $this->set(compact('guest_pages'));
+    }
+
+    public function setFlashMessage($type, $message) {
+        if ($type == 'success') {
+            $this->Flash->success($message, ['key' => 'success']);
+        } else {
+            $this->Flash->error($message, ['key' => 'error']);
+        }
     }
 }

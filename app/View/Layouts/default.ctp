@@ -19,31 +19,32 @@
 <html>
     <head>
         <?php echo $this->Html->charset(); ?>
-            <title>
-                BLOG
-            </title>
-            <meta name="description" content="sample text,sample tex">
-            <meta name="keywords" content="word1,word2,word3">
+        <title>
+            BLOG
+        </title>
+        <meta name="description" content="sample text,sample tex">
+        <meta name="keywords" content="word1,word2,word3">
 
-            <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
-            <meta http-equiv="X-UA-Compatible" content="IE=edge">
-            <meta property="og:title" content="">
-            <meta property="og:description" content="sample text,sample tex">
-            <meta property="og:url" content="">
-            <meta property="og:site_name" content="">
-            <meta property="og:type" content="blog">
-            <meta property="fb:admins" content="">
-            <meta property="og:image" content="assets/images/common/ogp.png">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta property="og:title" content="">
+        <meta property="og:description" content="sample text,sample tex">
+        <meta property="og:url" content="">
+        <meta property="og:site_name" content="">
+        <meta property="og:type" content="blog">
+        <meta property="fb:admins" content="">
+        <meta property="og:image" content="assets/images/common/ogp.png">
 
-            <meta name="apple-mobile-web-app-title" content="">
+        <meta name="apple-mobile-web-app-title" content="">
 
-            <link rel="shortcut icon" href="assets/images/common/favicon.ico">
-            <link rel="apple-touch-icon-precomposed" href="images/common/apple-touch-icon-precomposed.png">
-            <?php echo $this->Html->css(['bootstrap.min.css', 'style',]); ?>
-            <?php echo $this->Html->script(['app', 'jquery-3.1.1.min']); ?>
-            <style>
-
-
+        <link rel="shortcut icon" href="assets/images/common/favicon.ico">
+        <link rel="apple-touch-icon-precomposed" href="images/common/apple-touch-icon-precomposed.png">
+        <?php echo $this->Html->css(['bootstrap.min.css', 'style',]); ?>
+        <?php echo $this->Html->script(['app', 'jquery-3.1.1.min', 'blog']); ?>
+        <style>
+            .error-message {
+                color: red;
+            }
         </style>
     </head>
     <body id="js-body">
@@ -58,24 +59,13 @@
                 $user = in_array($this->params['action'], $guest_pages) ? 'guest' : 'admin';
                 echo $this->element('/headers/' . $user . '_header');
             ?>
+            <!--end header-->
 
             <?php echo $this->fetch('content'); ?>
 
             <!--footer ここから-->
-            <footer class="l-footer ">
-                <?php echo in_array($this->params['action'], $guest_pages) ? $this->element('/footers/scroll_button') : ''; ?>
-                <div class="l-footer-copyright">
-                    <small class="copyright">&copy;copyright</small>
-                </div>
-            </footer>
+            <?php echo $this->element('/footers/footer'); ?>
             <!--footer ここまで-->
         </div>
-
-        <script type="text/javascript">
-            function scrollTop() {
-                document.body.scrollTop = 0;
-                document.documentElement.scrollTop = 0;
-            }
-        </script>
     </body>
 </html>

@@ -5,7 +5,6 @@
         <div class="l-main-block"></div>
         <div class="page-number">
             <?php echo $this->Paginator->counter('Page {:page}/{:pages}');?>
-            <!-- Page <span >1/4</span> -->
         </div>
         <div class="archive">
             <ul class="archive-list">
@@ -34,7 +33,6 @@
                     echo $this->Paginator->prev($this->Html->tag('span', '', ['class' => 'paginate-prev-arrow']), ['class' => 'paginate-prev', 'tag' => false, 'escape' => false], null, ['class' => 'paginate-prev is-disable', 'tag' => false]);
                     echo $this->Paginator->numbers(['class' => 'paginate-number', 'currentClass' => 'paginate-number is-current', 'separator' => '']); 
                     echo $this->Paginator->next($this->Html->tag('span', '', ['class' => 'paginate-next-arrow']), ['class' => 'paginate-next', 'tag' => false, 'escape' => false], null, ['class' => 'paginate-next is-disable']);
-                   
                 }
             ?>
         </div>

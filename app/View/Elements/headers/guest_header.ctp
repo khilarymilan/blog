@@ -1,3 +1,10 @@
+<style type="text/css">
+    .close {
+        display: none;
+        font-size: 50px;
+    }
+</style>
+
 <header class="l-header  js-header">
     <div class="l-header-top u-clear">
     <div class="l-header-logo">
@@ -7,7 +14,7 @@
                     'alt' => 'BLOG', 
                     'width' => '253', 
                     'height' => '28',
-                    'url' => ['controller' => 'posts', 'action' => 'index']
+                    'url' => ['controller' => 'posts', 'action' => 'index'],
                 ]); 
             ?>
         </div>
@@ -18,13 +25,12 @@
             <span class="hamburger-item"></span>
             <span class="hamburger-item"></span>
         </a>
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close" style="display: none; font-size:50px;">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
 </div>
 </header>
-<!--end header-->
 
 <nav class="nav js-nav">
     <ul class="nav-list">
@@ -39,18 +45,3 @@
         </li>
     </ul>
 </nav>
-
-<script type="text/javascript">
-    $(function() {
-        $('.hamburger').click( function() {
-            $(this).css({'display': 'none'});
-            $(".close").css({'display': 'block'});
-            $(".js-nav").attr('class', 'nav is-active');
-        });
-        $('.close').click( function() {
-            $(this).css({'display': 'none'});
-            $(".hamburger").css({'display': 'block'});
-            $(".is-active").attr('class', 'nav js-nav');
-        });
-    });
-</script>

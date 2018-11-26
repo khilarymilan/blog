@@ -22,16 +22,4 @@ class Post extends AppModel {
             'message' => 'Please supply a valid image.'
         ],
     ];
-
-    public function newImageValidation() {
-        $this->validate = [
-            'new_image' => [
-                'rule' => [
-                    'extension',
-                    ['gif', 'jpeg', 'png', 'jpg']
-                ],
-                'message' => 'Please supply a valid image.'
-            ]
-        ];
-    }
 }

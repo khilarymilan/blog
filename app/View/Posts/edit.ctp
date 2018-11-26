@@ -37,16 +37,7 @@
     <script type="text/javascript">
         $(function() {
             var currentFile = $('#PostImage').val();
-            console.log(currentFile);
             $('#image-name').text(currentFile);
-
-            $('.form-file').click( function() {
-                $('#image').change(function() {
-                    var filename = $('#image').val().replace(/C:\\fakepath\\/i, '');
-                    $('#image-name').text(filename);
-
-                });
-            });
         });
     </script>
 </div>

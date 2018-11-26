@@ -8,63 +8,75 @@ class PostsController extends AppController {
         'limit' => 5,
         'order' => [
             'Post.id' => 'asc'
-        ]
+        ],
     ];
 
     public function index() {
-        $this->Paginator->settings = $this->paginate;
-
-        $posts = $this->Paginator->paginate('Post');
-        $this->set('posts', $posts);
+        $this->_paginatePosts();
     }
 
-    public function list() {
-        $this->Paginator->settings = $this->paginate;
+    public function view($id = null) {
+        if (!$id) {
+            $this->setFlashMessage('error', 'Sorry, the page you are trying to access does not exist.');
+            return $this->redirect(['action' => 'index']);
+        }
 
-        $posts = $this->Paginator->paginate('Post');
-        $this->set('posts', $posts);
+        $post = $this->Post->findById($id);
+        if (!$post) {
+            $this->setFlashMessage('error', 'Sorry, the page you are trying to access does not exist.');
+            return $this->redirect(['action' => 'index']);
+        }
+        $this->set('post', $post);
+    }
+
+    public function archive() {
+        $this->_paginatePosts();
     }
 
     public function add() {
         if ($this->request->is('post')) {
             $this->Post->set($this->request->data);
             if ($this->Post->validates()) {
-                $this->request->data['Post']['image'] = $this->request->data['Post']['image']['name'];
+                $image_data = $this->request->data['Post']['image'];
+                $this->request->data['Post']['image'] = $image_data['name'];
                 if ($this->Post->save($this->request->data)) {
-                    $this->saveImage([
-                        'tmp_name' => $this->request->data['Post']['image']['tmp_name'], 
-                        'filename' => $this->request->data['Post']['image']['name']
+                    $this->_saveImage([
+                        'tmp_name' => $image_data['tmp_name'], 
+                        'filename' => $image_data['name']
                     ]);
-                    $this->Flash->success('Article has been added', ['key' => 'success']);
+                    $this->setFlashMessage('success', 'Article has been added');
                     return $this->redirect(['action' => 'edit', $this->Post->id]);
-                }
+                } 
+                $this->setFlashMessage('error', 'Ooops! Something went wrong, please try again.');
             }
+            $this->setFlashMessage('error', 'Please fill in the required details');
         }
     }
 
     public function edit($id = null) {
         $post = $this->Post->findById($id);
         if (!$post) {
-            throw new NotFoundException(__('Invalid post'));
+            $this->setFlashMessage('error', 'Sorry, the page you are trying to access does not exist.');
+            return $this->redirect(['action' => 'list']);
         }
 
         if ($this->request->is('post') || $this->request->is('put')) {
-            if (!empty($this->request->data['Post']['image_new']['name'])) {
-                $this->request->data['Post']['image'] = $this->request->data['Post']['image_new']['name'];
+            $image_data = $this->request->data['Post']['image_new'];
+            if (!empty($image_data['name'])) {
+                $this->request->data['Post']['image'] = $image_data['name'];
             }
 
             $this->Post->id = $this->request->data['Post']['id'];
             $this->Post->set($this->request->data);
-            // var_dump($this->Post->validates());die;
             if ($this->Post->validates()) {
                 if ($this->Post->save($this->request->data)) {
                     if (!empty($this->request->data['Post']['image_new']['name'])) {
-                        $this->saveImage([
+                        $this->_saveImage([
                             'tmp_name' => $this->request->data['Post']['image_new']['tmp_name'], 
                             'filename' => $this->request->data['Post']['image_new']['name']
                         ]);
                     }
-                    $this->Flash->success('Article has been edited', ['key' => 'success']);
+                    $this->setFlashMessage('success', 'Article has been edited');
                     $this->redirect(['action' => 'edit', $this->Post->id]);
                 }
             }
@@ -72,27 +84,18 @@ class PostsController extends AppController {
         $this->request->data = $post;
     }
 
-    public function view($id) {
-        if (!$id) {
-            throw new NotFoundException(__('Invalid post'));
-        }
-
-        $post = $this->Post->findById($id);
-        if (!$post) {
-            throw new NotFoundException(__('Invalid post'));
-        }
-        $this->set('post', $post);
+    public function list() {
+        $this->_paginatePosts();
     }
 
-    public function archive() {
+    private function _paginatePosts() {
         $this->Paginator->settings = $this->paginate;
 
         $posts = $this->Paginator->paginate('Post');
-        $this->set('posts', $posts);
-
+        $this->set(compact('posts'));
     }
 
-    public function saveImage($data = []) {
+    private function _saveImage($data = []) {
         move_uploaded_file(
             $data['tmp_name'],
             WWW_ROOT . 'img' . DS . $data['filename']

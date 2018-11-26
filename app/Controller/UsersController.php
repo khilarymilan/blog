@@ -1,10 +1,8 @@
 <?php
-App::uses('AppController', 'Controller');
 
 class UsersController extends AppController {
     public function beforeFilter() {
         parent::beforeFilter();
-        // Allow users to register and logout.
         $this->Auth->allow('logout');
     }
 
@@ -16,7 +14,7 @@ class UsersController extends AppController {
             if ($this->Auth->login()) {
                 return $this->redirect($this->Auth->redirectUrl());
             } else {
-                $this->Flash->error('Invalid User ID or Password!', array('key' => 'danger'));
+                $this->setFlashMessage('error', 'Invalid User ID or Password!');
             }
         }
     }

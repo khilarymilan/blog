@@ -4,6 +4,7 @@
     <main class="l-main js-main">
         <div class="l-main-block"></div>
         <?php 
+            echo $this->Flash->render('error');
             echo $this->Form->create('Post', ['class' => 'form', 'type' => 'file']);
         ?>
             <label for="image" class="form-title">EYE CATCH IMAGE
@@ -32,16 +33,5 @@
         </a>
     </main>
     <!--end l-main-->
-    <script type="text/javascript">
-        $(function() {
-            $('.form-file').click( function() {
-                $('#image').change(function() {
-                    var filename = $('#image').val().replace(/C:\\fakepath\\/i, '');
-                    $('#image-name').text(filename);
-
-                });
-            });
-        });
-    </script>
 </div>
 <!--end l-contents-->

@@ -8,6 +8,7 @@
                 <p class="button-text">New Article</p>
             </div>
         </a>
+        <?php echo $this->Flash->render('error'); ?>
         
         <ul class="archive archive-admin">
             <?php foreach ($posts as $post) : ?>
@@ -25,7 +26,6 @@
                     echo $this->Paginator->prev($this->Html->tag('span', '', ['class' => 'paginate-prev-arrow']), ['class' => 'paginate-prev', 'tag' => false, 'escape' => false], null, ['class' => 'paginate-prev is-disable', 'tag' => false]);
                     echo $this->Paginator->numbers(['class' => 'paginate-number', 'currentClass' => 'paginate-number is-current', 'separator' => '']); 
                     echo $this->Paginator->next($this->Html->tag('span', '', ['class' => 'paginate-next-arrow']), ['class' => 'paginate-next', 'tag' => false, 'escape' => false], null, ['class' => 'paginate-next is-disable']);
-                   
                 }
             ?>
         </div>
