@@ -3,7 +3,7 @@
 class PostsController extends AppController {
     public $helpers = ['Html', 'Form'];
     public $components = ['Paginator', 'Session'];
-    public $allowedActions = ['view'];
+
     public $paginate = [
         'limit' => 5,
         'order' => [
